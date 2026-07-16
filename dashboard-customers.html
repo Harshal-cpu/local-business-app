@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - LocalBiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LocalBiz</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">🏢</span><span class="nav-text">Businesses</span></a>
+                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></a>
+                <a href="dashboard-products.html" class="nav-item"><span class="nav-icon">🛍️</span><span class="nav-text">Products</span></a>
+                <a href="dashboard-customers.html" class="nav-item active"><span class="nav-icon">👥</span><span class="nav-text">Customers</span></a>
+                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">💰</span><span class="nav-text">Revenue</span></a>
+                <a href="dashboard-settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Doe</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+            </div>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="header-title">
+                        <h1>Customers</h1>
+                        <p>Manage your customer relationships</p>
+                    </div>
+                    <div class="header-actions">
+                        <input type="search" placeholder="Search customers..." style="padding: 0.75rem 1rem; border: 2px solid #e2e8f0; border-radius: 8px; margin-right: 1rem;">
+                        <button class="btn btn-primary">+ Add Customer</button>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-content">
+                <div id="customersContainer">
+                    <div style="text-align: center; padding: 4rem;">
+                        <p style="color: #718096;">Loading customers...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        const user = checkAuth();
+        if (!user) window.location.href = 'login.html';
+        else {
+            document.getElementById('userName').textContent = user.fullName || user.email;
+            document.getElementById('userRole').textContent = user.role || 'User';
+            document.getElementById('userAvatar').textContent = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
+            loadCustomers();
+        }
+
+        async function loadCustomers() {
+            const token = localStorage.getItem('token');
+            const container = document.getElementById('customersContainer');
+            
+            try {
+                console.log('Fetching customers...');
+                const response = await fetch('http://localhost:5000/api/orders/customers', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                
+                const customers = await response.json();
+                console.log('Customers:', customers);
+                
+                if (customers.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 4rem; background: #f7fafc; border-radius: 12px;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">👥</div>
+                            <h3 style="margin-bottom: 0.5rem;">No customers yet</h3>
+                            <p style="color: #718096;">Customers who purchase your products will appear here</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div style="background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead style="background: #f7fafc; border-bottom: 2px solid #e2e8f0;">
+                                <tr>
+                                    <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Customer</th>
+                                    <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Email</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600; color: #4a5568;">Orders</th>
+                                    <th style="padding: 1rem; text-align: right; font-weight: 600; color: #4a5568;">Total Spent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${customers.map(customer => `
+                                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                                        <td style="padding: 1rem;">
+                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                                    ${customer.name ? customer.name.charAt(0).toUpperCase() : 'U'}
+                                                </div>
+                                                <span style="font-weight: 500;">${customer.name || 'Unknown'}</span>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 1rem; color: #718096;">${customer.email}</td>
+                                        <td style="padding: 1rem; text-align: center;">
+                                            <span style="background: #f3e8ff; color: #7c3aed; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.875rem; font-weight: 600;">
+                                                ${customer.orders}
+                                            </span>
+                                        </td>
+                                        <td style="padding: 1rem; text-align: right; font-weight: 600; color: #10b981;">₹${customer.totalSpent.toFixed(2)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Failed to load customers:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: #e53e3e;">
+                        <p>Failed to load customers</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

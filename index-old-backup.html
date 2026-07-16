@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalBiz - Local Business Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; overflow-x: hidden; }
+        
+        /* Aurora Background */
+        #aurora-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        
+        /* Glass Effects */
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        /* Navigation */
+        nav { position: relative; z-index: 10; padding: 1.5rem 2rem; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-box { width: 2rem; height: 2rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: #a1a1aa; text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-btn { padding: 0.5rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: #fff; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.15); }
+        
+        /* Hero Section */
+        .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 300; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 400; }
+        .hero p { font-size: clamp(1.125rem, 2vw, 1.25rem); color: #a1a1aa; max-width: 700px; margin: 0 auto 3rem; line-height: 1.6; }
+        
+        /* Buttons */
+        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+        .btn-primary { padding: 0.875rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 0.5rem; color: #fff; font-weight: 500; cursor: pointer; transition: transform 0.2s; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-secondary { padding: 0.875rem 2rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: #fff; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+        
+        /* Divider */
+        .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); margin: 3rem auto; }
+        
+        /* Projects Grid */
+        .projects { max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .project-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 1.5rem; transition: all 0.3s; }
+        .project-card:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.2); }
+        .project-image { height: 8rem; background: rgba(255, 255, 255, 0.05); border-radius: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .project-card h3 { font-size: 1.125rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .project-card p { color: #a1a1aa; font-size: 0.875rem; margin-bottom: 1rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { padding: 0.25rem 0.75rem; background: rgba(255, 255, 255, 0.05); border-radius: 0.25rem; font-size: 0.75rem; color: #a1a1aa; }
+        
+        /* Stats */
+        .stats { max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; text-align: center; }
+        .stat-item { position: relative; }
+        .stat-value { font-size: 2.5rem; font-weight: 300; margin-bottom: 0.5rem; }
+        .stat-label { color: #a1a1aa; font-size: 0.875rem; }
+        .stat-divider { width: 1px; height: 3rem; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.1), transparent); }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: flex; gap: 1rem; font-size: 0.75rem; }
+            .stat-divider { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="aurora-canvas"></canvas>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-box">LB</div>
+                <span style="font-weight: 500;">LocalBiz</span>
+            </div>
+            <div class="nav-links">
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="nav-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </nav>
+
+    <main class="hero" id="about">
+        <h1>
+            Local Business Platform &<br>
+            <span class="gradient-text">Digital Growth</span>
+        </h1>
+        <p>Empowering local businesses with modern tools to connect with customers, manage operations, and scale seamlessly in the digital age.</p>
+        
+        <div class="btn-group">
+            <button class="btn-primary" onclick="window.location.href='join.html'">Register Business</button>
+            <button class="btn-secondary" onclick="window.location.href='contact.html'">Contact Us</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="projects" id="projects">
+            <div class="project-card" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
+                <div class="project-image">📊</div>
+                <h3>Business Dashboard</h3>
+                <p>Manage products, orders, and track your business performance.</p>
+                <div class="tags">
+                    <span class="tag">Analytics</span>
+                    <span class="tag">Orders</span>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='customer-dashboard.html'" style="cursor: pointer;">
+                <div class="project-image">🛍️</div>
+                <h3>Customer Portal</h3>
+                <p>Browse local businesses and place orders seamlessly.</p>
+                <div class="tags">
+                    <span class="tag">Shopping</span>
+                    <span class="tag">Reviews</span>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='join.html'" style="cursor: pointer;">
+                <div class="project-image">🏪</div>
+                <h3>Register Business</h3>
+                <p>Join our platform and start growing your local business.</p>
+                <div class="tags">
+                    <span class="tag">Free</span>
+                    <span class="tag">Easy Setup</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">Active Businesses</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value">10K+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value">99%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple Aurora Background Animation
+        const canvas = document.getElementById('aurora-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let time = 0;
+        
+        function drawAurora() {
+            ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                for (let x = 0; x < canvas.width; x += 10) {
+                    const y = canvas.height / 2 + Math.sin(x * 0.01 + time + i) * 100 + Math.sin(x * 0.005 + time * 0.5) * 50;
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, `rgba(102, 126, 234, ${0.1 + i * 0.05})`);
+                gradient.addColorStop(0.5, `rgba(118, 75, 162, ${0.15 + i * 0.05})`);
+                gradient.addColorStop(1, `rgba(102, 126, 234, ${0.1 + i * 0.05})`);
+                
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
+            time += 0.01;
+            requestAnimationFrame(drawAurora);
+        }
+        
+        drawAurora();
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

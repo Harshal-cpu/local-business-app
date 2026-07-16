@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - LocalBiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LocalBiz</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">🏢</span><span class="nav-text">Businesses</span></a>
+                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></a>
+                <a href="dashboard-products.html" class="nav-item"><span class="nav-icon">🛍️</span><span class="nav-text">Products</span></a>
+                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Customers</span></a>
+                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">💰</span><span class="nav-text">Revenue</span></a>
+                <a href="dashboard-settings.html" class="nav-item active"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Doe</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+            </div>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="header-title">
+                        <h1>Settings</h1>
+                        <p>Manage your account and preferences</p>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-content">
+                <div style="max-width: 800px;">
+                    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Profile Information</h3>
+                        <div id="profileMessage" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;"></div>
+                        <form id="profileForm">
+                            <div style="display: grid; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Full Name</label>
+                                    <input type="text" id="settingsName" name="fullName" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Email</label>
+                                    <input type="email" id="settingsEmail" name="email" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: fit-content;">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Change Password</h3>
+                        <div id="passwordMessage" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;"></div>
+                        <form id="passwordForm">
+                            <div style="display: grid; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Current Password</label>
+                                    <input type="password" name="currentPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">New Password</label>
+                                    <input type="password" name="newPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: fit-content;">Update Password</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #fed7d7;">
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: #c53030;">Danger Zone</h3>
+                        <p style="color: #718096; margin-bottom: 1rem;">Once you delete your account, there is no going back.</p>
+                        <button class="btn" style="background: #c53030; color: white;">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        const user = checkAuth();
+        if (!user) window.location.href = 'login.html';
+        else {
+            document.getElementById('userName').textContent = user.fullName || user.email;
+            document.getElementById('userRole').textContent = user.role || 'User';
+            document.getElementById('userAvatar').textContent = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
+            document.getElementById('settingsName').value = user.fullName || '';
+            document.getElementById('settingsEmail').value = user.email || '';
+        }
+        
+        // Save profile changes
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('profileMessage');
+            
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+            
+            const formData = new FormData(e.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email')
+            };
+            
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:5000/api/users/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    const updatedUser = await response.json();
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                    msg.style.display = 'block';
+                    msg.style.background = '#d4edda';
+                    msg.style.color = '#155724';
+                    msg.textContent = '✓ Profile updated successfully!';
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                msg.style.display = 'block';
+                msg.style.background = '#f8d7da';
+                msg.style.color = '#721c24';
+                msg.textContent = '✗ Failed to update profile';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Save Changes';
+            }
+        });
+        
+        // Change password
+        document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('passwordMessage');
+            
+            btn.disabled = true;
+            btn.textContent = 'Updating...';
+            
+            const formData = new FormData(e.target);
+            const data = {
+                currentPassword: formData.get('currentPassword'),
+                newPassword: formData.get('newPassword')
+            };
+            
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:5000/api/users/password', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    msg.style.display = 'block';
+                    msg.style.background = '#d4edda';
+                    msg.style.color = '#155724';
+                    msg.textContent = '✓ Password updated successfully!';
+                    e.target.reset();
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                msg.style.display = 'block';
+                msg.style.background = '#f8d7da';
+                msg.style.color = '#721c24';
+                msg.textContent = '✗ Failed to update password';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Update Password';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue - LocalBiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LocalBiz</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">🏢</span><span class="nav-text">Businesses</span></a>
+                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></a>
+                <a href="dashboard-products.html" class="nav-item"><span class="nav-icon">🛍️</span><span class="nav-text">Products</span></a>
+                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Customers</span></a>
+                <a href="dashboard-revenue.html" class="nav-item active"><span class="nav-icon">💰</span><span class="nav-text">Revenue</span></a>
+                <a href="dashboard-settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Doe</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+            </div>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="header-title">
+                        <h1>Revenue</h1>
+                        <p>Track your earnings and financial performance</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline">Export Report</button>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Revenue</h3>
+                            <span class="stat-icon">💵</span>
+                        </div>
+                        <div class="stat-value">₹0</div>
+                        <div class="stat-change">No data yet</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>This Month</h3>
+                            <span class="stat-icon">📅</span>
+                        </div>
+                        <div class="stat-value">₹0</div>
+                        <div class="stat-change">No data yet</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Avg. Order Value</h3>
+                            <span class="stat-icon">🛒</span>
+                        </div>
+                        <div class="stat-value">₹0</div>
+                        <div class="stat-change">No data yet</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Orders</h3>
+                            <span class="stat-icon">📦</span>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-change">No data yet</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        const user = checkAuth();
+        if (!user) window.location.href = 'login.html';
+        else {
+            document.getElementById('userName').textContent = user.fullName || user.email;
+            document.getElementById('userRole').textContent = user.role || 'User';
+            document.getElementById('userAvatar').textContent = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
+            loadRevenueStats();
+        }
+
+        async function loadRevenueStats() {
+            const token = localStorage.getItem('token');
+            try {
+                console.log('Fetching revenue stats...');
+                const response = await fetch('http://localhost:5000/api/orders/stats', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                
+                const stats = await response.json();
+                console.log('Revenue stats:', stats);
+                
+                document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = `₹${stats.totalRevenue.toFixed(2)}`;
+                document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = `₹${stats.monthlyRevenue.toFixed(2)}`;
+                document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = `₹${stats.avgOrderValue.toFixed(2)}`;
+                document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = stats.totalOrders;
+                
+                document.querySelector('.stat-card:nth-child(1) .stat-change').textContent = stats.totalRevenue > 0 ? 'All time' : 'No sales yet';
+                document.querySelector('.stat-card:nth-child(2) .stat-change').textContent = stats.monthlyRevenue > 0 ? 'Current month' : 'No sales this month';
+                document.querySelector('.stat-card:nth-child(3) .stat-change').textContent = stats.totalOrders > 0 ? 'Per order' : 'No orders yet';
+                document.querySelector('.stat-card:nth-child(4) .stat-change').textContent = stats.totalOrders > 0 ? 'Total completed' : 'No orders yet';
+            } catch (error) {
+                console.error('Failed to load revenue stats:', error);
+                alert('Failed to load revenue data. Check console for details.');
+            }
+        }
+    </script>
+</body>
+</html>

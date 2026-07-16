@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Business - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="toast.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        .content { position: relative; z-index: 10; }
+
+        nav {
+            padding: 1rem 1.5rem;
+            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: #e5e5e5;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .register-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem 8rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .register-hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .register-container {
+            max-width: 900px;
+            margin: -5rem auto 4rem;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .register-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #a3a3a3;
+        }
+        .step.active .step-circle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        .step.completed .step-circle {
+            background: #48bb78;
+            color: white;
+            border-color: #48bb78;
+        }
+        .step-label {
+            font-size: 0.875rem;
+            color: #a3a3a3;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        .step.active .step-label {
+            color: #667eea;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: #e5e5e5;
+        }
+        .section-subtitle {
+            color: #a3a3a3;
+            margin-bottom: 2rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #e5e5e5;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+            color: #e5e5e5;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-card {
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-card:hover {
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .category-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+        }
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .category-name {
+            font-weight: 500;
+            color: #e5e5e5;
+            font-size: 0.875rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e5e5e5;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .benefit-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .benefit-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #e5e5e5;
+        }
+        .benefit-desc {
+            font-size: 0.875rem;
+            color: #a3a3a3;
+        }
+        @media (max-width: 768px) {
+            .form-row, .category-grid, .benefits {
+                grid-template-columns: 1fr;
+            }
+            .register-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">LB</div>
+                    <span style="font-weight: 500;">LocalBiz</span>
+                </div>
+                <button class="glass-btn" onclick="window.location.href='index.html'">Back to Home</button>
+            </div>
+        </nav>
+    
+    <div class="register-hero">
+        <h1>Join Our Business Network</h1>
+        <p>Connect with thousands of customers and grow your business</p>
+    </div>
+    
+    <div class="register-container">
+        <div class="register-card">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 33.33%"></div>
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Business Info</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Category</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Details</div>
+                </div>
+            </div>
+            
+            <form id="businessForm" novalidate>
+                <!-- Step 1: Basic Info -->
+                <div class="form-section active" data-section="1">
+                    <h2 class="section-title">Business Information</h2>
+                    <p class="section-subtitle">Tell us about your business</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="businessName">Business Name *</label>
+                            <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessEmail">Business Email *</label>
+                            <input type="email" id="businessEmail" name="businessEmail" placeholder="contact@business.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="businessPhone">Phone Number *</label>
+                            <input type="tel" id="businessPhone" name="businessPhone" placeholder="+1 (555) 123-4567" pattern="[\d\s\-\+\(\)]+" title="Please enter a valid phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsappNumber">WhatsApp Number</label>
+                            <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="+1 (555) 123-4567" pattern="[\d\s\-\+\(\)]+" title="Please enter a valid WhatsApp number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ownerName">Owner/Manager Name *</label>
+                            <input type="text" id="ownerName" name="ownerName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude">Latitude (Optional)</label>
+                            <input type="text" id="latitude" name="latitude" placeholder="40.7128">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="longitude">Longitude (Optional)</label>
+                            <input type="text" id="longitude" name="longitude" placeholder="-74.0060">
+                        </div>
+                        <div class="form-group">
+                            <label for="mapLink">Google Maps Link (Optional)</label>
+                            <input type="url" id="mapLink" name="mapLink" placeholder="https://maps.google.com/...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessAddress">Business Address *</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="businessAddress" name="businessAddress" placeholder="123 Main Street, City, State 12345" required style="flex: 1;">
+                            <button type="button" class="btn btn-outline" onclick="detectLocation()" style="white-space: nowrap;">📍 Detect</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="businessImage">Business Logo/Photo</label>
+                        <input type="file" id="businessImage" accept="image/*" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                        <input type="hidden" id="businessImageUrl" name="businessImage">
+                        <div id="businessImagePreview" style="margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Category -->
+                <div class="form-section" data-section="2">
+                    <h2 class="section-title">Choose Your Category</h2>
+                    <p class="section-subtitle">Select the category that best describes your business</p>
+                    
+                    <input type="hidden" id="businessType" name="businessType" required>
+                    
+                    <div class="category-grid">
+                        <div class="category-card" onclick="selectCategory('restaurant', this)">
+                            <div class="category-icon">🍕</div>
+                            <div class="category-name">Restaurant</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('retail', this)">
+                            <div class="category-icon">🛍️</div>
+                            <div class="category-name">Retail</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('salon', this)">
+                            <div class="category-icon">💇</div>
+                            <div class="category-name">Beauty/Salon</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('fitness', this)">
+                            <div class="category-icon">🏋️</div>
+                            <div class="category-name">Fitness</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('automotive', this)">
+                            <div class="category-icon">🚗</div>
+                            <div class="category-name">Automotive</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('healthcare', this)">
+                            <div class="category-icon">🏥</div>
+                            <div class="category-name">Healthcare</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('professional', this)">
+                            <div class="category-icon">💼</div>
+                            <div class="category-name">Professional</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('home-services', this)">
+                            <div class="category-icon">🔧</div>
+                            <div class="category-name">Home Services</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('entertainment', this)">
+                            <div class="category-icon">🎭</div>
+                            <div class="category-name">Entertainment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Details -->
+                <div class="form-section" data-section="3">
+                    <h2 class="section-title">Business Details</h2>
+                    <p class="section-subtitle">Help customers find and understand your business</p>
+                    
+                    <div class="form-group">
+                        <label for="businessDescription">Business Description *</label>
+                        <textarea id="businessDescription" name="businessDescription" placeholder="Describe your business, services, and what makes you unique..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessImage">Business Image URL (Optional)</label>
+                        <input type="url" id="businessImage" name="businessImage" placeholder="https://example.com/image.jpg">
+                        <small style="color: #718096; font-size: 0.875rem;">Paste a link to your business logo or photo</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="website">Website (Optional)</label>
+                            <input type="url" id="website" name="website" placeholder="https://yourbusiness.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="yearEstablished">Year Established</label>
+                            <input type="number" id="yearEstablished" name="yearEstablished" placeholder="2020" min="1900" max="2025">
+                        </div>
+                    </div>
+                    
+                    <div class="benefits">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">📈</div>
+                            <div class="benefit-title">Grow Your Reach</div>
+                            <div class="benefit-desc">Connect with local customers</div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">⭐</div>
+                            <div class="benefit-title">Build Trust</div>
+                            <div class="benefit-desc">Collect reviews & ratings</div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-icon">💡</div>
+                            <div class="benefit-title">Get Insights</div>
+                            <div class="benefit-desc">Track your performance</div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                        <button type="submit" class="btn btn-primary">Complete Registration ✓</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 LocalBiz. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/auth.js"></script>
+    <script>
+        let currentStep = 1;
+        
+        // Check if user is logged in
+        const user = checkAuth();
+        if (!user) {
+            alert('Please login or create an account first');
+            window.location.href = 'signup.html';
+        } else {
+            // User is logged in - could add logout functionality here if needed
+        }
+        
+        function nextStep() {
+            // Validate current step fields only
+            const currentSection = document.querySelector(`[data-section="${currentStep}"]`);
+            const requiredFields = currentSection.querySelectorAll('[required]');
+            let isValid = true;
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.reportValidity();
+                    isValid = false;
+                    break;
+                }
+            }
+            
+            if (!isValid) return;
+            
+            if (currentStep === 2 && !document.getElementById('businessType').value) {
+                alert('Please select a business category');
+                return;
+            }
+            
+            if (currentStep < 3) {
+                currentStep++;
+                updateStep();
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+            }
+        }
+        
+        function updateStep() {
+            // Update sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${currentStep}"]`).classList.add('active');
+            
+            // Update progress
+            document.querySelectorAll('.step').forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+            
+            // Update progress bar
+            const progress = (currentStep / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function selectCategory(category, element) {
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('businessType').value = category;
+        }
+        
+        function detectLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        document.getElementById('latitude').value = position.coords.latitude.toFixed(6);
+                        document.getElementById('longitude').value = position.coords.longitude.toFixed(6);
+                        
+                        // Generate Google Maps link
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        document.getElementById('mapLink').value = `https://www.google.com/maps?q=${lat},${lng}`;
+                        
+                        // Reverse geocode to get address
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`, {
+                            headers: {
+                                'User-Agent': 'LocalBiz/1.0'
+                            }
+                        })
+                            .then(res => {
+                                if (!res.ok) throw new Error('Geocoding failed');
+                                return res.json();
+                            })
+                            .then(data => {
+                                if (data.display_name) {
+                                    document.getElementById('businessAddress').value = data.display_name;
+                                }
+                            })
+                            .catch(() => {
+                                // Silently fail - location coordinates are already set
+                                console.log('Address lookup unavailable');
+                            });
+                    },
+                    (error) => {
+                        alert('Unable to detect location. Please enter manually.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        // Handle business image upload
+        document.getElementById('businessImage').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('image', file);
+            const token = localStorage.getItem('token');
+
+            try {
+                document.getElementById('businessImagePreview').innerHTML = '<div style="display: flex; align-items: center; gap: 0.5rem;"><div class="spinner"></div><span style="color: #718096; font-size: 0.875rem;">Uploading...</span></div>';
+                
+                const response = await fetch('http://localhost:5000/api/upload', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('businessImageUrl').value = data.url;
+                    document.getElementById('businessImagePreview').innerHTML = `<img src="${data.url}" style="max-width: 200px; border-radius: 8px; border: 2px solid #e2e8f0;">`;
+                } else {
+                    alert('Failed to upload image');
+                    document.getElementById('businessImagePreview').innerHTML = '';
+                }
+            } catch (error) {
+                alert('Error uploading image');
+                document.getElementById('businessImagePreview').innerHTML = '';
+            }
+        });
+        
+        document.getElementById('businessForm').addEventListener('submit', handleBusinessRegistration);
+    </script>
+</body>
+</html>

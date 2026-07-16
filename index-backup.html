@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalBiz - Grow Your Local Business</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="./favicon.png">
+
+</head>
+
+<body>
+    <nav class="navbar glass-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo" style="color: white; font-weight: 700; font-size: 1.5rem;">
+                    LocalBiz</div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li id="authLinks">
+                    <a href="login.html" class="nav-link">Login</a>
+                </li>
+                <li id="signupBtn">
+                    <a href="signup.html" class="btn btn-primary nav-btn"
+                        style="background: white; color: var(--zinc-950);">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section style="padding: 10rem 1.5rem 6rem; background: linear-gradient(rgba(18, 20, 29, 0.85), rgba(18, 20, 29, 0.85)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80') center/cover; text-align: center;">
+            <div class="container" style="max-width: 900px; margin: 0 auto;">
+                <h1 style="font-size: clamp(3rem, 10vw, 5rem); font-weight: 700; line-height: 1.1; color: white; margin-bottom: 1.5rem; letter-spacing: -0.03em;">
+                    LocalBiz Platform
+                </h1>
+                <p style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); color: #d4d4d8; line-height: 1.5; max-width: 700px; margin: 0 auto;">
+                    Empowering local businesses with modern tools.
+                </p>
+            </div>
+        </section>
+
+        <!-- Description -->
+        <section style="padding: 5rem 1.5rem; background: #12141d;">
+            <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: white; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+                    Built for Local Success
+                </h2>
+                <p style="font-size: 1.25rem; color: #a1a1aa; line-height: 1.7;">
+                    A comprehensive platform for local entrepreneurs to grow, connect with customers, and manage operations seamlessly.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section style="padding: 5rem 1.5rem; background: #12141d;">
+            <div class="container" style="max-width: 1200px; margin: 0 auto;">
+                <h2 style="text-align: center; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 4rem; color: white; letter-spacing: -0.02em;">
+                    What We Offer
+                </h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Business Dashboard</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Track performance and customer insights in real-time.</p>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Customer Management</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Build relationships through integrated communication.</p>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Product Showcase</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Display products with images and pricing.</p>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Order Processing</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Streamline operations with order management.</p>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Mobile Optimized</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Manage your business on any device.</p>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.75rem;">Reviews & Ratings</h3>
+                        <p style="color: #a1a1aa; line-height: 1.6;">Build trust with customer feedback.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Platform -->
+        <section style="padding: 5rem 1.5rem; background: #12141d;">
+            <div class="container" style="max-width: 1000px; margin: 0 auto;">
+                <h2 style="text-align: center; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 3rem; color: white; letter-spacing: -0.02em;">
+                    Join Our Platform
+                </h2>
+
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="padding: 2rem; border-radius: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div style="font-size: 0.875rem; color: #71717a; margin-bottom: 0.5rem;">01</div>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">Business Owner</h3>
+                            <div style="font-size: 0.875rem; color: #a1a1aa;">Register Your Business • Free to Start</div>
+                        </div>
+                        <a href="join.html" style="padding: 0.875rem 2rem; background: white; color: #110b11; border-radius: 0.5rem; font-weight: 600; text-decoration: none;">Get Started</a>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div style="font-size: 0.875rem; color: #71717a; margin-bottom: 0.5rem;">02</div>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">Customer</h3>
+                            <div style="font-size: 0.875rem; color: #a1a1aa;">Discover Local Businesses</div>
+                        </div>
+                        <a href="signup.html" style="padding: 0.875rem 2rem; background: white; color: #110b11; border-radius: 0.5rem; font-weight: 600; text-decoration: none;">Sign Up</a>
+                    </div>
+
+                    <div style="padding: 2rem; border-radius: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div style="font-size: 0.875rem; color: #71717a; margin-bottom: 0.5rem;">03</div>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">Partner</h3>
+                            <div style="font-size: 0.875rem; color: #a1a1aa;">Collaborate With Us</div>
+                        </div>
+                        <a href="contact.html" style="padding: 0.875rem 2rem; background: white; color: #110b11; border-radius: 0.5rem; font-weight: 600; text-decoration: none;">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- CTA Section -->
+        <section style="padding: 6rem 1.5rem; background: #12141d;">
+            <div class="container" style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: white; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+                    Ready to Transform Your Business?
+                </h2>
+                <p style="font-size: 1.125rem; color: #a1a1aa; line-height: 1.6; margin-bottom: 2.5rem;">
+                    Get started with LocalBiz today.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="join.html" style="padding: 1rem 2.5rem; background: white; color: #110b11; border-radius: 0.5rem; font-weight: 600; text-decoration: none;">Register Business</a>
+                    <a href="contact.html" style="padding: 1rem 2.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 0.5rem; font-weight: 600; text-decoration: none;">Contact</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" style="background: #12141d; border-top: 1px solid rgba(255,255,255,0.1); padding: 4rem 1.5rem 2rem;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 1rem;">LocalBiz</div>
+                    <p style="color: #a1a1aa; line-height: 1.6; margin-bottom: 1.5rem;">
+                        We craft high-performance digital experiences that drive real business results.
+                    </p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Instagram</a>
+                        <a href="#" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Facebook</a>
+                        <a href="#" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">LinkedIn</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Quick Links</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="index.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Home</a>
+                        <a href="about.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">About</a>
+                        <a href="services.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Services</a>
+                        <a href="contact.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Services</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="services.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Analytics Dashboard</a>
+                        <a href="services.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Payment Processing</a>
+                        <a href="services.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Mobile App</a>
+                        <a href="services.html" style="color: #a1a1aa; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#a1a1aa'">Marketing Tools</a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
+                <p style="color: #71717a; font-size: 0.875rem;">Copyright © 2026 LocalBiz All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script>
+        const user = checkAuth();
+        if (user) {
+            document.getElementById('authLinks').innerHTML = `<span class="nav-link" style="font-weight: 500;">Hi, ${user.fullName || user.email}</span>`;
+
+            if (user.role === 'business_owner') {
+                document.getElementById('signupBtn').innerHTML = `<a href="join.html" class="btn btn-primary nav-btn">Register Business</a>`;
+            } else {
+                document.getElementById('signupBtn').innerHTML = `<a href="dashboard.html" class="btn btn-primary nav-btn">My Account</a>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

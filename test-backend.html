@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .result { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e9; color: #2e7d32; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <button onclick="testBackend()">Test Backend</button>
+    <button onclick="testBusinesses()">Test Businesses</button>
+    <button onclick="testProducts()">Test Products</button>
+    <div id="results"></div>
+
+    <script>
+        async function testBackend() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="result">Testing backend connection...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/test');
+                const data = await response.json();
+                results.innerHTML = `<div class="result success">✓ Backend is running!<br>MongoDB: ${data.mongodb}<br>Time: ${data.timestamp}</div>`;
+            } catch (error) {
+                results.innerHTML = `<div class="result error">✗ Backend connection failed: ${error.message}<br>Make sure backend is running on port 5000</div>`;
+            }
+        }
+
+        async function testBusinesses() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="result">Fetching businesses...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/businesses');
+                const data = await response.json();
+                results.innerHTML = `<div class="result success">✓ Found ${data.length} businesses<br><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+            } catch (error) {
+                results.innerHTML = `<div class="result error">✗ Failed to fetch businesses: ${error.message}</div>`;
+            }
+        }
+
+        async function testProducts() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="result">Fetching products...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/products');
+                const data = await response.json();
+                results.innerHTML = `<div class="result success">✓ Found ${data.length} products<br><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+            } catch (error) {
+                results.innerHTML = `<div class="result error">✗ Failed to fetch products: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

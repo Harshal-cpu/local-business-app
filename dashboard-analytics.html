@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - LocalBiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="toast.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LocalBiz</div>
+                <button class="sidebar-toggle">☰</button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="dashboard-businesses.html" class="nav-item">
+                    <span class="nav-icon">🏢</span>
+                    <span class="nav-text">Businesses</span>
+                </a>
+                <a href="dashboard-analytics.html" class="nav-item active">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Analytics</span>
+                </a>
+                <a href="dashboard-products.html" class="nav-item">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Products</span>
+                </a>
+                <a href="dashboard-customers.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Customers</span>
+                </a>
+                <a href="dashboard-revenue.html" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">Revenue</span>
+                </a>
+                <a href="dashboard-settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Doe</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="header-title">
+                        <h1>Analytics</h1>
+                        <p>Track your business performance and insights</p>
+                    </div>
+                    <div class="header-actions">
+                        <select class="btn btn-outline" style="padding: 0.75rem 1rem;">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 3 months</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Businesses</h3>
+                            <span class="stat-icon">🏢</span>
+                        </div>
+                        <div class="stat-value" id="totalBusinesses">-</div>
+                        <div class="stat-change">Loading...</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Products</h3>
+                            <span class="stat-icon">🛍️</span>
+                        </div>
+                        <div class="stat-value" id="totalProducts">-</div>
+                        <div class="stat-change">Loading...</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Products In Stock</h3>
+                            <span class="stat-icon">✅</span>
+                        </div>
+                        <div class="stat-value" id="inStockProducts">-</div>
+                        <div class="stat-change">Loading...</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Avg. Product Price</h3>
+                            <span class="stat-icon">💰</span>
+                        </div>
+                        <div class="stat-value" id="avgPrice">-</div>
+                        <div class="stat-change">Loading...</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Business Categories</h3>
+                    <div id="categoryBreakdown"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        const user = checkAuth();
+        if (!user) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('userName').textContent = user.fullName || user.email;
+            document.getElementById('userRole').textContent = user.role || 'User';
+            const initials = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
+            document.getElementById('userAvatar').textContent = initials;
+            loadAnalytics();
+        }
+        
+        async function loadAnalytics() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                // Fetch businesses
+                const businessRes = await fetch('http://localhost:5000/api/businesses', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const businesses = await businessRes.json();
+                
+                // Fetch products
+                const productRes = await fetch('http://localhost:5000/api/products/my-products', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const products = await productRes.json();
+                
+                // Calculate stats
+                const totalBusinesses = businesses.length;
+                const totalProducts = products.length;
+                const inStockProducts = products.filter(p => p.inStock).length;
+                const avgPrice = products.length > 0 
+                    ? (products.reduce((sum, p) => sum + p.price, 0) / products.length).toFixed(2)
+                    : 0;
+                
+                // Update UI
+                document.getElementById('totalBusinesses').textContent = totalBusinesses;
+                document.querySelector('#totalBusinesses').nextElementSibling.textContent = 
+                    totalBusinesses > 0 ? 'Your registered businesses' : 'No businesses yet';
+                
+                document.getElementById('totalProducts').textContent = totalProducts;
+                document.querySelector('#totalProducts').nextElementSibling.textContent = 
+                    totalProducts > 0 ? 'Total products listed' : 'No products yet';
+                
+                document.getElementById('inStockProducts').textContent = inStockProducts;
+                document.querySelector('#inStockProducts').nextElementSibling.textContent = 
+                    `${totalProducts - inStockProducts} out of stock`;
+                
+                document.getElementById('avgPrice').textContent = '₹' + avgPrice;
+                document.querySelector('#avgPrice').nextElementSibling.textContent = 
+                    products.length > 0 ? 'Average product price' : 'No products yet';
+                
+                // Category breakdown
+                const categoryCount = {};
+                businesses.forEach(b => {
+                    categoryCount[b.category] = (categoryCount[b.category] || 0) + 1;
+                });
+                
+                const categoryBreakdown = document.getElementById('categoryBreakdown');
+                if (Object.keys(categoryCount).length === 0) {
+                    categoryBreakdown.innerHTML = '<p style="color: #718096; text-align: center;">No data available</p>';
+                } else {
+                    const maxCount = Math.max(...Object.values(categoryCount));
+                    categoryBreakdown.innerHTML = Object.entries(categoryCount)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([category, count]) => `
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 500; text-transform: capitalize;">${category}</span>
+                                    <span style="color: #718096;">${count} ${count === 1 ? 'business' : 'businesses'}</span>
+                                </div>
+                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: ${(count / maxCount) * 100}%; transition: width 0.3s;"></div>
+                                </div>
+                            </div>
+                        `).join('');
+                }
+                
+            } catch (error) {
+                document.getElementById('statsGrid').innerHTML = 
+                    '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #e53e3e;">Failed to load analytics</div>';
+            }
+        }
+    </script>
+</body>
+</html>

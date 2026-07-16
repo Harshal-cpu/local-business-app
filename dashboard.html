@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LocalBiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LocalBiz</div>
+                <button class="sidebar-toggle">☰</button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="dashboard-businesses.html" class="nav-item">
+                    <span class="nav-icon">🏢</span>
+                    <span class="nav-text">Businesses</span>
+                </a>
+                <a href="dashboard-analytics.html" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Analytics</span>
+                </a>
+                <a href="dashboard-products.html" class="nav-item">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Products</span>
+                </a>
+                <a href="dashboard-customers.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Customers</span>
+                </a>
+                <a href="dashboard-revenue.html" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">Revenue</span>
+                </a>
+                <a href="dashboard-settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">John Doe</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="header-title">
+                        <h1>Dashboard Overview</h1>
+                        <p>Welcome back! Here's what's happening with your business network.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="exportData()">Export Data</button>
+                        <a href="join.html" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Add Business</a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Businesses</h3>
+                            <span class="stat-icon">🏢</span>
+                        </div>
+                        <div class="stat-value" id="totalBusinesses">
+                            <div class="skeleton" style="height: 48px; width: 80px;"></div>
+                        </div>
+                        <div class="stat-change" id="businessChange">
+                            <div class="skeleton" style="height: 16px; width: 120px;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Products</h3>
+                            <span class="stat-icon">🛍️</span>
+                        </div>
+                        <div class="stat-value" id="totalProducts">
+                            <div class="skeleton" style="height: 48px; width: 80px;"></div>
+                        </div>
+                        <div class="stat-change" id="productChange">
+                            <div class="skeleton" style="height: 16px; width: 120px;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Revenue</h3>
+                            <span class="stat-icon">💰</span>
+                        </div>
+                        <div class="stat-value" id="totalRevenue">
+                            <div class="skeleton" style="height: 48px; width: 120px;"></div>
+                        </div>
+                        <div class="stat-change" id="revenueChange">
+                            <div class="skeleton" style="height: 16px; width: 140px;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Products In Stock</h3>
+                            <span class="stat-icon">📦</span>
+                        </div>
+                        <div class="stat-value" id="inStockCount">
+                            <div class="skeleton" style="height: 48px; width: 80px;"></div>
+                        </div>
+                        <div class="stat-change" id="stockChange">
+                            <div class="skeleton" style="height: 16px; width: 100px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Recent Businesses</h3>
+                        </div>
+                        <div id="recentBusinesses" style="padding: 1rem;">
+                            <p style="color: #718096; text-align: center;">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="categories-card">
+                        <div class="card-header">
+                            <h3>Business Categories</h3>
+                        </div>
+                        <div class="categories-list" id="categoriesList">
+                            <p style="color: #718096; text-align: center; padding: 1rem;">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity-card">
+                        <div class="card-header">
+                            <h3>Recent Products</h3>
+                        </div>
+                        <div class="activity-list" id="recentProducts">
+                            <p style="color: #718096; text-align: center; padding: 1rem;">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="top-performers-card">
+                        <div class="card-header">
+                            <h3>Top Products by Price</h3>
+                        </div>
+                        <div class="performers-list" id="topProducts">
+                            <p style="color: #718096; text-align: center; padding: 1rem;">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+    
+    <script src="js/auth.js"></script>
+    <script>
+        // Theme Management
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+
+        // Error Display Function
+        function showError(container, message, retry = null) {
+            container.innerHTML = `
+                <div class="error-container">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-title">Oops! Something went wrong</div>
+                    <div class="error-message">${message}</div>
+                    <div class="error-actions">
+                        ${retry ? `<button class="btn btn-primary" onclick="${retry}">Try Again</button>` : ''}
+                        <button class="btn btn-outline" onclick="window.location.reload()">Refresh Page</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        const user = checkAuth();
+        if (!user) {
+            window.location.href = 'login.html';
+        } else if (user.role === 'customer') {
+            window.location.href = 'customer-dashboard.html';
+        } else {
+            document.getElementById('userName').textContent = user.fullName || user.email;
+            document.getElementById('userRole').textContent = 'Business Owner';
+            const initials = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
+            document.getElementById('userAvatar').textContent = initials;
+            loadDashboardData();
+        }
+        
+        async function loadDashboardData() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                // Fetch businesses and products
+                const [businessRes, productRes] = await Promise.all([
+                    fetch('http://localhost:5000/api/businesses', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    }),
+                    fetch('http://localhost:5000/api/products/my-products', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                ]);
+                
+                const businesses = await businessRes.json();
+                const products = await productRes.json();
+                
+                // Update stats - remove skeletons
+                document.getElementById('totalBusinesses').textContent = businesses.length;
+                document.getElementById('businessChange').textContent = businesses.length > 0 ? 'Your registered businesses' : 'No businesses yet';
+                
+                document.getElementById('totalProducts').textContent = products.length;
+                document.getElementById('productChange').textContent = products.length > 0 ? 'Total products listed' : 'No products yet';
+                
+                const totalRevenue = products.reduce((sum, p) => sum + (p.price * (p.stock || 0)), 0);
+                document.getElementById('totalRevenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+                document.getElementById('revenueChange').textContent = totalRevenue > 0 ? 'Estimated inventory value' : 'No revenue data';
+                
+                const inStock = products.filter(p => p.inStock).length;
+                document.getElementById('inStockCount').textContent = inStock;
+                document.getElementById('stockChange').textContent = `${products.length - inStock} out of stock`;
+                
+                // Recent businesses
+                const recentBusinesses = businesses.slice(-3).reverse();
+                document.getElementById('recentBusinesses').innerHTML = recentBusinesses.length > 0
+                    ? recentBusinesses.map(b => `
+                        <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">${b.name}</div>
+                            <div style="font-size: 0.875rem; color: #718096; text-transform: capitalize;">${b.category}</div>
+                        </div>
+                    `).join('')
+                    : '<p style="color: #718096; text-align: center; padding: 1rem;">No businesses yet</p>';
+                
+                // Categories breakdown
+                const categoryCount = {};
+                const categoryIcons = {
+                    restaurant: '🍕', retail: '🛒', salon: '💄', fitness: '🏋️',
+                    automotive: '🚗', healthcare: '🏥', professional: '💼',
+                    'home-services': '🔧', entertainment: '🎭'
+                };
+                
+                businesses.forEach(b => {
+                    categoryCount[b.category] = (categoryCount[b.category] || 0) + 1;
+                });
+                
+                const maxCount = Math.max(...Object.values(categoryCount), 1);
+                document.getElementById('categoriesList').innerHTML = Object.keys(categoryCount).length > 0
+                    ? Object.entries(categoryCount).slice(0, 4).map(([cat, count]) => `
+                        <div class="category-item">
+                            <div class="category-info">
+                                <span class="category-icon">${categoryIcons[cat] || '🏢'}</span>
+                                <div>
+                                    <div class="category-name" style="text-transform: capitalize;">${cat.replace('-', ' ')}</div>
+                                    <div class="category-count">${count} ${count === 1 ? 'business' : 'businesses'}</div>
+                                </div>
+                            </div>
+                            <div class="category-progress">
+                                <div class="progress-bar" style="width: ${(count / maxCount) * 100}%"></div>
+                            </div>
+                        </div>
+                    `).join('')
+                    : '<p style="color: #718096; text-align: center; padding: 1rem;">No categories yet</p>';
+                
+                // Recent products - grouped by business
+                const productsByBusiness = products.reduce((acc, p) => {
+                    const businessName = p.business?.name || 'Unknown Business';
+                    if (!acc[businessName]) acc[businessName] = [];
+                    acc[businessName].push(p);
+                    return acc;
+                }, {});
+                
+                document.getElementById('recentProducts').innerHTML = Object.keys(productsByBusiness).length > 0
+                    ? Object.entries(productsByBusiness).map(([businessName, prods]) => `
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-weight: 600; color: #667eea; font-size: 0.875rem; margin-bottom: 0.5rem; padding-left: 0.5rem; border-left: 3px solid #667eea;">
+                                🏢 ${businessName} (${prods.length})
+                            </div>
+                            ${prods.slice(0, 3).map(p => `
+                                <div class="activity-item">
+                                    <div class="activity-icon product">📦</div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">${p.name}</div>
+                                        <div class="activity-desc">₹${p.price} • ${p.inStock ? 'In Stock' : 'Out of Stock'}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')
+                    : '<p style="color: #718096; text-align: center; padding: 1rem;">No products yet</p>';
+                
+                // Top products by price
+                const topProducts = [...products].sort((a, b) => b.price - a.price).slice(0, 3);
+                document.getElementById('topProducts').innerHTML = topProducts.length > 0
+                    ? topProducts.map((p, i) => `
+                        <div class="performer-item">
+                            <div class="performer-rank">${i + 1}</div>
+                            <div class="performer-info">
+                                <div class="performer-name">${p.name}</div>
+                                <div class="performer-category">${p.category}</div>
+                            </div>
+                            <div class="performer-revenue">₹${p.price}</div>
+                        </div>
+                    `).join('')
+                    : '<p style="color: #718096; text-align: center; padding: 1rem;">No products yet</p>';
+                
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+                showError(
+                    document.querySelector('.dashboard-content'),
+                    'Failed to load dashboard data. Please check your connection and try again.',
+                    'loadDashboard()'
+                );
+            }
+        }
+
+        async function exportData() {
+            const token = localStorage.getItem('token');
+            try {
+                const [businessRes, productRes] = await Promise.all([
+                    fetch('http://localhost:5000/api/businesses', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    }),
+                    fetch('http://localhost:5000/api/products/my-products', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                ]);
+                
+                const businesses = await businessRes.json();
+                const products = await productRes.json();
+                
+                // Calculate revenue by business
+                const revenueByBusiness = products.reduce((acc, p) => {
+                    const businessName = p.business?.name || 'Unknown';
+                    if (!acc[businessName]) {
+                        acc[businessName] = { revenue: 0, products: 0 };
+                    }
+                    acc[businessName].revenue += p.price * (p.stock || 0);
+                    acc[businessName].products += 1;
+                    return acc;
+                }, {});
+                
+                const totalValue = products.reduce((sum, p) => sum + (p.price * (p.stock || 0)), 0);
+                const date = new Date().toLocaleDateString();
+                
+                const htmlContent = `
+                    <html>
+                    <head>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 40px; }
+                            h1 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+                            h2 { color: #333; margin-top: 30px; }
+                            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                            th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                            th { background: #667eea; color: white; }
+                            .summary { background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0; }
+                            .summary-item { margin: 10px 0; font-size: 16px; }
+                            .revenue-box { background: #d4edda; padding: 15px; border-radius: 8px; margin: 10px 0; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>LocalBiz Business Report</h1>
+                        <p><strong>Export Date:</strong> ${date}</p>
+                        
+                        <div class="summary">
+                            <h2>Summary</h2>
+                            <div class="summary-item">📊 Total Businesses: ${businesses.length}</div>
+                            <div class="summary-item">🛍️ Total Products: ${products.length}</div>
+                            <div class="summary-item">💰 Total Inventory Value: ₹${totalValue.toLocaleString('en-IN')}</div>
+                        </div>
+                        
+                        <h2>Revenue Report by Business</h2>
+                        <table>
+                            <tr>
+                                <th>Business Name</th>
+                                <th>Products</th>
+                                <th>Inventory Value</th>
+                                <th>% of Total</th>
+                            </tr>
+                            ${Object.entries(revenueByBusiness).map(([name, data]) => `
+                                <tr>
+                                    <td>${name}</td>
+                                    <td>${data.products}</td>
+                                    <td>₹${data.revenue.toLocaleString('en-IN')}</td>
+                                    <td>${((data.revenue / totalValue) * 100).toFixed(1)}%</td>
+                                </tr>
+                            `).join('')}
+                            <tr style="background: #f7fafc; font-weight: bold;">
+                                <td>TOTAL</td>
+                                <td>${products.length}</td>
+                                <td>₹${totalValue.toLocaleString('en-IN')}</td>
+                                <td>100%</td>
+                            </tr>
+                        </table>
+                        
+                        <h2>Businesses</h2>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                            </tr>
+                            ${businesses.map(b => `
+                                <tr>
+                                    <td>${b.name}</td>
+                                    <td>${b.category || 'N/A'}</td>
+                                    <td>${b.email}</td>
+                                    <td>${b.phone}</td>
+                                    <td>${b.address}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                        
+                        <h2>Products</h2>
+                        <table>
+                            <tr>
+                                <th>Product</th>
+                                <th>Business</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+                            ${products.map(p => `
+                                <tr>
+                                    <td>${p.name}</td>
+                                    <td>${p.business?.name || 'N/A'}</td>
+                                    <td>₹${p.price}</td>
+                                    <td>${p.stock || 0}</td>
+                                    <td>₹${(p.price * (p.stock || 0)).toLocaleString('en-IN')}</td>
+                                    <td>${p.inStock ? 'In Stock' : 'Out of Stock'}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                    </body>
+                    </html>
+                `;
+                
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(htmlContent);
+                printWindow.document.close();
+                printWindow.print();
+                
+            } catch (error) {
+                alert('Failed to export data');
+            }
+        }
+    </script>
+</body>
+</html>
