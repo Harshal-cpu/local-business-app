@@ -23,7 +23,7 @@
             results.innerHTML = '<div class="result">Testing backend connection...</div>';
             
             try {
-                const response = await fetch('http://localhost:5000/api/test');
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/test');
                 const data = await response.json();
                 results.innerHTML = `<div class="result success">✓ Backend is running!<br>MongoDB: ${data.mongodb}<br>Time: ${data.timestamp}</div>`;
             } catch (error) {
@@ -36,7 +36,7 @@
             results.innerHTML = '<div class="result">Fetching businesses...</div>';
             
             try {
-                const response = await fetch('http://localhost:5000/api/businesses');
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/businesses');
                 const data = await response.json();
                 results.innerHTML = `<div class="result success">✓ Found ${data.length} businesses<br><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
             } catch (error) {
@@ -49,7 +49,7 @@
             results.innerHTML = '<div class="result">Fetching products...</div>';
             
             try {
-                const response = await fetch('http://localhost:5000/api/products');
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/products');
                 const data = await response.json();
                 results.innerHTML = `<div class="result success">✓ Found ${data.length} products<br><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
             } catch (error) {

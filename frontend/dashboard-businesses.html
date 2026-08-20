@@ -172,7 +172,7 @@
             container.innerHTML = '<div style="text-align: center; padding: 3rem;"><div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div><p style="margin-top: 1rem; color: #718096;">Loading businesses...</p></div>';
             
             try {
-                const response = await fetch('http://localhost:5000/api/businesses', {
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/businesses', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
@@ -238,7 +238,7 @@
             
             const token = localStorage.getItem('token');
             try {
-                await fetch(`http://localhost:5000/api/businesses/${id}`, {
+                await fetch(`https://local-business-app-backend-87z7.onrender.com/api/businesses/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -285,7 +285,7 @@
             try {
                 document.getElementById('editBusinessImagePreview').innerHTML = '<div style="display: flex; align-items: center; gap: 0.5rem;"><div class="spinner"></div><span style="color: #718096; font-size: 0.875rem;">Uploading...</span></div>';
                 
-                const response = await fetch('http://localhost:5000/api/upload', {
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/upload', {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` },
                     body: formData
@@ -323,7 +323,7 @@
             };
 
             try {
-                const response = await fetch(`http://localhost:5000/api/businesses/${businessId}`, {
+                const response = await fetch(`https://local-business-app-backend-87z7.onrender.com/api/businesses/${businessId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

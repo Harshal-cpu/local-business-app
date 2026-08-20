@@ -11,7 +11,6 @@ timeout /t 5 /nobreak >nul
 
 REM Start the backend
 echo Step 2: Starting Backend Server...
-cd backend
 npm run dev
 
 pause

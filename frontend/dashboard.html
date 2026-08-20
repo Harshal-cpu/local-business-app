@@ -220,10 +220,10 @@
             try {
                 // Fetch businesses and products
                 const [businessRes, productRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/businesses', {
+                    fetch('https://local-business-app-backend-87z7.onrender.com/api/businesses', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch('http://localhost:5000/api/products/my-products', {
+                    fetch('https://local-business-app-backend-87z7.onrender.com/api/products/my-products', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     })
                 ]);
@@ -343,10 +343,10 @@
             const token = localStorage.getItem('token');
             try {
                 const [businessRes, productRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/businesses', {
+                    fetch('https://local-business-app-backend-87z7.onrender.com/api/businesses', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch('http://localhost:5000/api/products/my-products', {
+                    fetch('https://local-business-app-backend-87z7.onrender.com/api/products/my-products', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     })
                 ]);

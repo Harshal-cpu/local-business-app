@@ -138,13 +138,13 @@
             
             try {
                 // Fetch businesses
-                const businessRes = await fetch('http://localhost:5000/api/businesses', {
+                const businessRes = await fetch('https://local-business-app-backend-87z7.onrender.com/api/businesses', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const businesses = await businessRes.json();
                 
                 // Fetch products
-                const productRes = await fetch('http://localhost:5000/api/products/my-products', {
+                const productRes = await fetch('https://local-business-app-backend-87z7.onrender.com/api/products/my-products', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const products = await productRes.json();

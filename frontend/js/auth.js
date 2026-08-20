@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://local-business-app-backend-87z7.onrender.com/api';
 
 // Login functionality
 async function handleLogin(event) {

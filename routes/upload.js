@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
       return res.status(400).json({ message: 'No file uploaded' });
     }
     
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const imageUrl = `https://local-business-app-backend-87z7.onrender.com/uploads/${req.file.filename}`;
     res.json({ url: imageUrl });
   });
 });

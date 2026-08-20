@@ -120,7 +120,7 @@
             
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/api/users/profile', {
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/users/profile', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -168,7 +168,7 @@
             
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/api/users/password', {
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/users/password', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

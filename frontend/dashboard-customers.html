@@ -74,7 +74,7 @@
             
             try {
                 console.log('Fetching customers...');
-                const response = await fetch('http://localhost:5000/api/orders/customers', {
+                const response = await fetch('https://local-business-app-backend-87z7.onrender.com/api/orders/customers', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
