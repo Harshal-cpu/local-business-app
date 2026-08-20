@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,35 +17,35 @@
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
                 <div class="logo">LocalBiz</div>
-                <button class="sidebar-toggle">☰</button>
+                <button class="sidebar-toggle">â˜°</button>
             </div>
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item">
-                    <span class="nav-icon">📊</span>
+                    <span class="nav-icon">ðŸ“Š</span>
                     <span class="nav-text">Dashboard</span>
                 </a>
                 <a href="dashboard-businesses.html" class="nav-item">
-                    <span class="nav-icon">🏢</span>
+                    <span class="nav-icon">ðŸ¢</span>
                     <span class="nav-text">Businesses</span>
                 </a>
                 <a href="dashboard-analytics.html" class="nav-item active">
-                    <span class="nav-icon">📈</span>
+                    <span class="nav-icon">ðŸ“ˆ</span>
                     <span class="nav-text">Analytics</span>
                 </a>
                 <a href="dashboard-products.html" class="nav-item">
-                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-icon">ðŸ›ï¸</span>
                     <span class="nav-text">Products</span>
                 </a>
                 <a href="dashboard-customers.html" class="nav-item">
-                    <span class="nav-icon">👥</span>
+                    <span class="nav-icon">ðŸ‘¥</span>
                     <span class="nav-text">Customers</span>
                 </a>
                 <a href="dashboard-revenue.html" class="nav-item">
-                    <span class="nav-icon">💰</span>
+                    <span class="nav-icon">ðŸ’°</span>
                     <span class="nav-text">Revenue</span>
                 </a>
                 <a href="dashboard-settings.html" class="nav-item">
-                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-icon">âš™ï¸</span>
                     <span class="nav-text">Settings</span>
                 </a>
             </nav>
@@ -56,7 +57,7 @@
                         <div class="user-role" id="userRole">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">â† Logout</a>
             </div>
         </aside>
 
@@ -82,7 +83,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Total Businesses</h3>
-                            <span class="stat-icon">🏢</span>
+                            <span class="stat-icon">ðŸ¢</span>
                         </div>
                         <div class="stat-value" id="totalBusinesses">-</div>
                         <div class="stat-change">Loading...</div>
@@ -90,7 +91,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Total Products</h3>
-                            <span class="stat-icon">🛍️</span>
+                            <span class="stat-icon">ðŸ›ï¸</span>
                         </div>
                         <div class="stat-value" id="totalProducts">-</div>
                         <div class="stat-change">Loading...</div>
@@ -98,7 +99,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Products In Stock</h3>
-                            <span class="stat-icon">✅</span>
+                            <span class="stat-icon">âœ…</span>
                         </div>
                         <div class="stat-value" id="inStockProducts">-</div>
                         <div class="stat-change">Loading...</div>
@@ -106,7 +107,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Avg. Product Price</h3>
-                            <span class="stat-icon">💰</span>
+                            <span class="stat-icon">ðŸ’°</span>
                         </div>
                         <div class="stat-value" id="avgPrice">-</div>
                         <div class="stat-change">Loading...</div>
@@ -170,7 +171,7 @@
                 document.querySelector('#inStockProducts').nextElementSibling.textContent = 
                     `${totalProducts - inStockProducts} out of stock`;
                 
-                document.getElementById('avgPrice').textContent = '₹' + avgPrice;
+                document.getElementById('avgPrice').textContent = 'â‚¹' + avgPrice;
                 document.querySelector('#avgPrice').nextElementSibling.textContent = 
                     products.length > 0 ? 'Average product price' : 'No products yet';
                 
