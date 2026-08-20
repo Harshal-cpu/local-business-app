@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,15 +18,15 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="index.html" class="nav-item">
-                    <span class="nav-icon">🏠</span>
+                    <span class="nav-icon">ðŸ </span>
                     <span class="nav-text">Home</span>
                 </a>
                 <a href="customer-dashboard.html" class="nav-item">
-                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-icon">ðŸ›ï¸</span>
                     <span class="nav-text">Shop Products</span>
                 </a>
                 <a href="order-history.html" class="nav-item active">
-                    <span class="nav-icon">📦</span>
+                    <span class="nav-icon">ðŸ“¦</span>
                     <span class="nav-text">My Orders</span>
                 </a>
             </nav>
@@ -37,7 +38,7 @@
                         <div class="user-role">Customer</div>
                     </div>
                 </div>
-                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">â† Logout</a>
             </div>
         </aside>
 
@@ -90,7 +91,7 @@
                 if (orders.length === 0) {
                     container.innerHTML = `
                         <div style="text-align: center; padding: 4rem; background: #f7fafc; border-radius: 12px;">
-                            <div style="font-size: 4rem; margin-bottom: 1rem;">📦</div>
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">ðŸ“¦</div>
                             <h3 style="margin-bottom: 0.5rem;">No orders yet</h3>
                             <p style="color: #718096; margin-bottom: 1.5rem;">Start shopping to see your orders here</p>
                             <a href="customer-dashboard.html" class="btn btn-primary" style="text-decoration: none;">Browse Products</a>
@@ -111,14 +112,14 @@
                         <div style="border-top: 1px solid #e2e8f0; padding-top: 1rem;">
                             ${order.items.map(item => `
                                 <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
-                                    <span style="color: #4a5568;">${item.name} × ${item.quantity}</span>
-                                    <span style="font-weight: 600;">₹${(item.price * item.quantity).toFixed(2)}</span>
+                                    <span style="color: #4a5568;">${item.name} Ã— ${item.quantity}</span>
+                                    <span style="font-weight: 600;">â‚¹${(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             `).join('')}
                         </div>
                         <div style="border-top: 2px solid #e2e8f0; margin-top: 1rem; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-weight: 600; font-size: 1.125rem;">Total</span>
-                            <span style="font-weight: 700; font-size: 1.5rem; color: #8b5cf6;">₹${order.total.toFixed(2)}</span>
+                            <span style="font-weight: 700; font-size: 1.5rem; color: #8b5cf6;">â‚¹${order.total.toFixed(2)}</span>
                         </div>
                         ${order.paymentId ? `<p style="color: #718096; font-size: 0.75rem; margin-top: 0.5rem;">Payment ID: ${order.paymentId}</p>` : ''}
                     </div>
