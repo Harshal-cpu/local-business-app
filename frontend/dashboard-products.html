@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -46,13 +47,13 @@
                 <div class="logo">LocalBiz</div>
             </div>
             <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
-                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">🏢</span><span class="nav-text">Businesses</span></a>
-                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></a>
-                <a href="dashboard-products.html" class="nav-item active"><span class="nav-icon">🛍️</span><span class="nav-text">Products</span></a>
-                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Customers</span></a>
-                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">💰</span><span class="nav-text">Revenue</span></a>
-                <a href="dashboard-settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">ðŸ“Š</span><span class="nav-text">Dashboard</span></a>
+                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">ðŸ¢</span><span class="nav-text">Businesses</span></a>
+                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">ðŸ“ˆ</span><span class="nav-text">Analytics</span></a>
+                <a href="dashboard-products.html" class="nav-item active"><span class="nav-icon">ðŸ›ï¸</span><span class="nav-text">Products</span></a>
+                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">ðŸ‘¥</span><span class="nav-text">Customers</span></a>
+                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">ðŸ’°</span><span class="nav-text">Revenue</span></a>
+                <a href="dashboard-settings.html" class="nav-item"><span class="nav-icon">âš™ï¸</span><span class="nav-text">Settings</span></a>
             </nav>
             <div class="sidebar-footer">
                 <div class="user-profile">
@@ -62,7 +63,7 @@
                         <div class="user-role" id="userRole">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">â† Logout</a>
             </div>
         </aside>
         <main class="dashboard-main">
@@ -89,7 +90,7 @@
         </main>
     </div>
 
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">ðŸŒ™</button>
 
     <!-- Add/Edit Product Modal -->
     <div id="productModal" class="modal">
@@ -174,7 +175,7 @@
             } catch (error) {
                 grid.innerHTML = `
                     <div class="error-container">
-                        <div class="error-icon">⚠️</div>
+                        <div class="error-icon">âš ï¸</div>
                         <div class="error-title">Failed to Load Products</div>
                         <div class="error-message">Unable to fetch products. Please check your connection.</div>
                         <div class="error-actions">
@@ -192,7 +193,7 @@
             if (products.length === 0) {
                 grid.innerHTML = `
                     <div style="text-align: center; padding: 4rem; background: #f7fafc; border-radius: 12px; grid-column: 1/-1;">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">📦</div>
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">ðŸ“¦</div>
                         <h3 style="margin-bottom: 0.5rem;">No products yet</h3>
                         <p style="color: #718096; margin-bottom: 1.5rem;">Start adding products to your catalog</p>
                         <button class="btn btn-primary" onclick="openAddModal()">Add Your First Product</button>
@@ -215,7 +216,7 @@
             grid.innerHTML = Object.entries(grouped).map(([businessId, data]) => `
                 <div style="grid-column: 1/-1; margin-bottom: 2rem;">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2px solid #e2e8f0;">
-                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a202c;">🏢 ${data.name}</h2>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a202c;">ðŸ¢ ${data.name}</h2>
                         <span style="padding: 0.25rem 0.75rem; background: #667eea; color: white; border-radius: 12px; font-size: 0.875rem;">${data.products.length} products</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
@@ -226,7 +227,7 @@
                                     <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">${product.name}</h3>
                                     <p style="color: #4a5568; font-size: 0.875rem; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${product.description}</p>
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                        <span style="font-size: 1.5rem; font-weight: 700; color: #667eea;">₹${product.price}</span>
+                                        <span style="font-size: 1.5rem; font-weight: 700; color: #667eea;">â‚¹${product.price}</span>
                                         <span style="padding: 0.25rem 0.75rem; background: ${product.inStock ? '#d4edda' : '#f8d7da'}; color: ${product.inStock ? '#155724' : '#721c24'}; border-radius: 12px; font-size: 0.75rem;">${product.inStock ? 'In Stock' : 'Out of Stock'}</span>
                                     </div>
                                     <div style="display: flex; gap: 0.5rem;">
