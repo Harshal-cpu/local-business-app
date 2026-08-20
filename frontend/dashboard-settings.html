@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,13 +17,13 @@
                 <div class="logo">LocalBiz</div>
             </div>
             <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
-                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">🏢</span><span class="nav-text">Businesses</span></a>
-                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></a>
-                <a href="dashboard-products.html" class="nav-item"><span class="nav-icon">🛍️</span><span class="nav-text">Products</span></a>
-                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Customers</span></a>
-                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">💰</span><span class="nav-text">Revenue</span></a>
-                <a href="dashboard-settings.html" class="nav-item active"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">ðŸ“Š</span><span class="nav-text">Dashboard</span></a>
+                <a href="dashboard-businesses.html" class="nav-item"><span class="nav-icon">ðŸ¢</span><span class="nav-text">Businesses</span></a>
+                <a href="dashboard-analytics.html" class="nav-item"><span class="nav-icon">ðŸ“ˆ</span><span class="nav-text">Analytics</span></a>
+                <a href="dashboard-products.html" class="nav-item"><span class="nav-icon">ðŸ›ï¸</span><span class="nav-text">Products</span></a>
+                <a href="dashboard-customers.html" class="nav-item"><span class="nav-icon">ðŸ‘¥</span><span class="nav-text">Customers</span></a>
+                <a href="dashboard-revenue.html" class="nav-item"><span class="nav-icon">ðŸ’°</span><span class="nav-text">Revenue</span></a>
+                <a href="dashboard-settings.html" class="nav-item active"><span class="nav-icon">âš™ï¸</span><span class="nav-text">Settings</span></a>
             </nav>
             <div class="sidebar-footer">
                 <div class="user-profile">
@@ -32,7 +33,7 @@
                         <div class="user-role" id="userRole">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">â† Logout</a>
             </div>
         </aside>
         <main class="dashboard-main">
@@ -135,7 +136,7 @@
                     msg.style.display = 'block';
                     msg.style.background = '#d4edda';
                     msg.style.color = '#155724';
-                    msg.textContent = '✓ Profile updated successfully!';
+                    msg.textContent = 'âœ“ Profile updated successfully!';
                     setTimeout(() => location.reload(), 1500);
                 } else {
                     throw new Error('Update failed');
@@ -144,7 +145,7 @@
                 msg.style.display = 'block';
                 msg.style.background = '#f8d7da';
                 msg.style.color = '#721c24';
-                msg.textContent = '✗ Failed to update profile';
+                msg.textContent = 'âœ— Failed to update profile';
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Save Changes';
@@ -181,7 +182,7 @@
                     msg.style.display = 'block';
                     msg.style.background = '#d4edda';
                     msg.style.color = '#155724';
-                    msg.textContent = '✓ Password updated successfully!';
+                    msg.textContent = 'âœ“ Password updated successfully!';
                     e.target.reset();
                 } else {
                     throw new Error('Update failed');
@@ -190,7 +191,7 @@
                 msg.style.display = 'block';
                 msg.style.background = '#f8d7da';
                 msg.style.color = '#721c24';
-                msg.textContent = '✗ Failed to update password';
+                msg.textContent = 'âœ— Failed to update password';
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Update Password';
