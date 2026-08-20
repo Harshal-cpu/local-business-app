@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - LocalBiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,35 +15,35 @@
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
                 <div class="logo">LocalBiz</div>
-                <button class="sidebar-toggle">☰</button>
+                <button class="sidebar-toggle">â˜°</button>
             </div>
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item active">
-                    <span class="nav-icon">📊</span>
+                    <span class="nav-icon">ðŸ“Š</span>
                     <span class="nav-text">Dashboard</span>
                 </a>
                 <a href="dashboard-businesses.html" class="nav-item">
-                    <span class="nav-icon">🏢</span>
+                    <span class="nav-icon">ðŸ¢</span>
                     <span class="nav-text">Businesses</span>
                 </a>
                 <a href="dashboard-analytics.html" class="nav-item">
-                    <span class="nav-icon">📈</span>
+                    <span class="nav-icon">ðŸ“ˆ</span>
                     <span class="nav-text">Analytics</span>
                 </a>
                 <a href="dashboard-products.html" class="nav-item">
-                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-icon">ðŸ›ï¸</span>
                     <span class="nav-text">Products</span>
                 </a>
                 <a href="dashboard-customers.html" class="nav-item">
-                    <span class="nav-icon">👥</span>
+                    <span class="nav-icon">ðŸ‘¥</span>
                     <span class="nav-text">Customers</span>
                 </a>
                 <a href="dashboard-revenue.html" class="nav-item">
-                    <span class="nav-icon">💰</span>
+                    <span class="nav-icon">ðŸ’°</span>
                     <span class="nav-text">Revenue</span>
                 </a>
                 <a href="dashboard-settings.html" class="nav-item">
-                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-icon">âš™ï¸</span>
                     <span class="nav-text">Settings</span>
                 </a>
             </nav>
@@ -54,7 +55,7 @@
                         <div class="user-role" id="userRole">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="logout-btn" onclick="logout(); return false;">← Logout</a>
+                <a href="#" class="logout-btn" onclick="logout(); return false;">â† Logout</a>
             </div>
         </aside>
 
@@ -77,7 +78,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Total Businesses</h3>
-                            <span class="stat-icon">🏢</span>
+                            <span class="stat-icon">ðŸ¢</span>
                         </div>
                         <div class="stat-value" id="totalBusinesses">
                             <div class="skeleton" style="height: 48px; width: 80px;"></div>
@@ -89,7 +90,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Total Products</h3>
-                            <span class="stat-icon">🛍️</span>
+                            <span class="stat-icon">ðŸ›ï¸</span>
                         </div>
                         <div class="stat-value" id="totalProducts">
                             <div class="skeleton" style="height: 48px; width: 80px;"></div>
@@ -101,7 +102,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Total Revenue</h3>
-                            <span class="stat-icon">💰</span>
+                            <span class="stat-icon">ðŸ’°</span>
                         </div>
                         <div class="stat-value" id="totalRevenue">
                             <div class="skeleton" style="height: 48px; width: 120px;"></div>
@@ -113,7 +114,7 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <h3>Products In Stock</h3>
-                            <span class="stat-icon">📦</span>
+                            <span class="stat-icon">ðŸ“¦</span>
                         </div>
                         <div class="stat-value" id="inStockCount">
                             <div class="skeleton" style="height: 48px; width: 80px;"></div>
@@ -165,7 +166,7 @@
         </main>
     </div>
     
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">ðŸŒ™</button>
     
     <script src="js/auth.js"></script>
     <script>
@@ -176,21 +177,21 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            document.getElementById('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeToggle').textContent = newTheme === 'dark' ? 'â˜€ï¸' : 'ðŸŒ™';
         }
 
         // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
         if (savedTheme === 'dark') {
-            document.getElementById('themeToggle').textContent = '☀️';
+            document.getElementById('themeToggle').textContent = 'â˜€ï¸';
         }
 
         // Error Display Function
         function showError(container, message, retry = null) {
             container.innerHTML = `
                 <div class="error-container">
-                    <div class="error-icon">⚠️</div>
+                    <div class="error-icon">âš ï¸</div>
                     <div class="error-title">Oops! Something went wrong</div>
                     <div class="error-message">${message}</div>
                     <div class="error-actions">
@@ -239,7 +240,7 @@
                 document.getElementById('productChange').textContent = products.length > 0 ? 'Total products listed' : 'No products yet';
                 
                 const totalRevenue = products.reduce((sum, p) => sum + (p.price * (p.stock || 0)), 0);
-                document.getElementById('totalRevenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+                document.getElementById('totalRevenue').textContent = 'â‚¹' + totalRevenue.toLocaleString('en-IN');
                 document.getElementById('revenueChange').textContent = totalRevenue > 0 ? 'Estimated inventory value' : 'No revenue data';
                 
                 const inStock = products.filter(p => p.inStock).length;
@@ -260,9 +261,9 @@
                 // Categories breakdown
                 const categoryCount = {};
                 const categoryIcons = {
-                    restaurant: '🍕', retail: '🛒', salon: '💄', fitness: '🏋️',
-                    automotive: '🚗', healthcare: '🏥', professional: '💼',
-                    'home-services': '🔧', entertainment: '🎭'
+                    restaurant: 'ðŸ•', retail: 'ðŸ›’', salon: 'ðŸ’„', fitness: 'ðŸ‹ï¸',
+                    automotive: 'ðŸš—', healthcare: 'ðŸ¥', professional: 'ðŸ’¼',
+                    'home-services': 'ðŸ”§', entertainment: 'ðŸŽ­'
                 };
                 
                 businesses.forEach(b => {
@@ -274,7 +275,7 @@
                     ? Object.entries(categoryCount).slice(0, 4).map(([cat, count]) => `
                         <div class="category-item">
                             <div class="category-info">
-                                <span class="category-icon">${categoryIcons[cat] || '🏢'}</span>
+                                <span class="category-icon">${categoryIcons[cat] || 'ðŸ¢'}</span>
                                 <div>
                                     <div class="category-name" style="text-transform: capitalize;">${cat.replace('-', ' ')}</div>
                                     <div class="category-count">${count} ${count === 1 ? 'business' : 'businesses'}</div>
@@ -299,14 +300,14 @@
                     ? Object.entries(productsByBusiness).map(([businessName, prods]) => `
                         <div style="margin-bottom: 1rem;">
                             <div style="font-weight: 600; color: #667eea; font-size: 0.875rem; margin-bottom: 0.5rem; padding-left: 0.5rem; border-left: 3px solid #667eea;">
-                                🏢 ${businessName} (${prods.length})
+                                ðŸ¢ ${businessName} (${prods.length})
                             </div>
                             ${prods.slice(0, 3).map(p => `
                                 <div class="activity-item">
-                                    <div class="activity-icon product">📦</div>
+                                    <div class="activity-icon product">ðŸ“¦</div>
                                     <div class="activity-content">
                                         <div class="activity-title">${p.name}</div>
-                                        <div class="activity-desc">₹${p.price} • ${p.inStock ? 'In Stock' : 'Out of Stock'}</div>
+                                        <div class="activity-desc">â‚¹${p.price} â€¢ ${p.inStock ? 'In Stock' : 'Out of Stock'}</div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -324,7 +325,7 @@
                                 <div class="performer-name">${p.name}</div>
                                 <div class="performer-category">${p.category}</div>
                             </div>
-                            <div class="performer-revenue">₹${p.price}</div>
+                            <div class="performer-revenue">â‚¹${p.price}</div>
                         </div>
                     `).join('')
                     : '<p style="color: #718096; text-align: center; padding: 1rem;">No products yet</p>';
@@ -389,9 +390,9 @@
                         
                         <div class="summary">
                             <h2>Summary</h2>
-                            <div class="summary-item">📊 Total Businesses: ${businesses.length}</div>
-                            <div class="summary-item">🛍️ Total Products: ${products.length}</div>
-                            <div class="summary-item">💰 Total Inventory Value: ₹${totalValue.toLocaleString('en-IN')}</div>
+                            <div class="summary-item">ðŸ“Š Total Businesses: ${businesses.length}</div>
+                            <div class="summary-item">ðŸ›ï¸ Total Products: ${products.length}</div>
+                            <div class="summary-item">ðŸ’° Total Inventory Value: â‚¹${totalValue.toLocaleString('en-IN')}</div>
                         </div>
                         
                         <h2>Revenue Report by Business</h2>
@@ -406,14 +407,14 @@
                                 <tr>
                                     <td>${name}</td>
                                     <td>${data.products}</td>
-                                    <td>₹${data.revenue.toLocaleString('en-IN')}</td>
+                                    <td>â‚¹${data.revenue.toLocaleString('en-IN')}</td>
                                     <td>${((data.revenue / totalValue) * 100).toFixed(1)}%</td>
                                 </tr>
                             `).join('')}
                             <tr style="background: #f7fafc; font-weight: bold;">
                                 <td>TOTAL</td>
                                 <td>${products.length}</td>
-                                <td>₹${totalValue.toLocaleString('en-IN')}</td>
+                                <td>â‚¹${totalValue.toLocaleString('en-IN')}</td>
                                 <td>100%</td>
                             </tr>
                         </table>
@@ -452,9 +453,9 @@
                                 <tr>
                                     <td>${p.name}</td>
                                     <td>${p.business?.name || 'N/A'}</td>
-                                    <td>₹${p.price}</td>
+                                    <td>â‚¹${p.price}</td>
                                     <td>${p.stock || 0}</td>
-                                    <td>₹${(p.price * (p.stock || 0)).toLocaleString('en-IN')}</td>
+                                    <td>â‚¹${(p.price * (p.stock || 0)).toLocaleString('en-IN')}</td>
                                     <td>${p.inStock ? 'In Stock' : 'Out of Stock'}</td>
                                 </tr>
                             `).join('')}
